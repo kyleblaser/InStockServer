@@ -1,0 +1,23 @@
+{
+  "name": "instock-server",
+  "version": "1.0.0",
+  "description": "InStock Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/kyleblaser/InStockServer.git"
+  },
+  "author": "Kyle, Danny, Justin, David",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kyleblaser/InStockServer/issues"
+  },
+  "homepage": "https://github.com/kyleblaser/InStockServer#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
