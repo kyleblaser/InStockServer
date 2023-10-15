@@ -17,6 +17,8 @@ if (!PORT || !SERV_URL) {
 app.use(cors());
 app.use(express.json());
 
+// WARHOUSE CODE
+
 // GET all Warehouses
 router.get("data/warehouses.js", async (req, res) => {
   try {
@@ -75,6 +77,69 @@ router.delete("data/warehouses/:id", async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Failed to Delete Warehouse");
+  }
+});
+
+//INVENTORIES CODE
+
+//get all inventories
+router.get("data/inventories", async (req, res) => {
+  try {
+    const inventory = await knex("inventory").select("*");
+    res.json(inventory);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Failed to Retrieve Inventory");
+  }
+});
+
+//get a single inventory
+router.get("data/inventories/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const inventory = await knex("inventory").select("*").where({ id: id });
+    res.json(inventory);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Failed to retrieve Inventory");
+  }
+});
+
+//POST a new inventory
+router.post("data/inventories", async (req, res) => {
+  const newInventory = req.body;
+  try {
+    await knex("inventory").insert(newInventory);
+    res.json(newInventory);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Failed to Add Inventory");
+  }
+});
+
+//PUT an inventory
+router.put("data/inventories/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedInventory = await knex("inventory")
+      .where({ id: id })
+      .update(req.body);
+    res.json(updatedInventory);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Failed to Update Inventory");
+  }
+});
+
+//DELETE an inventory
+router.delete("data/inventories/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedInventory = await knex("inventory").where({ id: id }).del();
+    res.json(deletedInventory);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Failed to Delete Inventory");
   }
 });
 
